@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Verification Code{% endblock %}
+
+{% block style %}
+#baseRow{
+  text-align:center;
+}
+{% endblock %}
+
+{% block baseRowClass %}
+justify-content-md-center
+{% endblock %}
+
+{% block body %}
+<div class="col-sm-6">
+  <img src="https://png.icons8.com/dusk/100/000000/phonelink-lock.png">
+  <div><br></div>
+  {% if error_message %}
+  <div class="alert alert-danger" role="alert">
+    {{ error_message }}
+  </div>
+    
+  {% endif %}
+  <form role="form" action="{% url 'main:verification_code' %}" method="post" enctype="multipart/form-data">
+    
+    {% csrf_token %}
+    
+    <div class="form-group">
+      <label for="verification_code">
+        We've sent a verification code to your email address.
+        Please check your inbox:</label>
+      <input type="text" class="form-control" name="verification_code" required="required" pattern="[ 0-9]+" placeholder="Enter code here">
+    </div>
+    
+    <input type="hidden" class="form-control" name="attempt_id" value="{{attempt_id}}">
+    
+    <div class="form-group">
+      <h4>Didn't get a code?</h4>
+      <h4><a href="{% url 'main:resend_verification_code' %}">Send email again</a></h4>
+      <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+    </div>
+    
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block body %}
+<div class="col-sm-12">
+  {% if error_messages %}
+    <div class="alert alert-danger" role="alert">
+      <h3 style="color:#8e2020;font-weight:bold;">Error:</h3>
+      <ul>
+      {% for message in error_messages %}
+      
+      <li>{{ message }}</li>
+    
+      {% endfor %}
+      </ul>
+    </div>
+    
+  {% endif %}
+  
+  <form role="form" action="{% url 'main:signup' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    {% if request.GET.next %}
+    <input type="hidden" name="next" value="{{ request.GET.next }}">
+    {% endif %}
+    
+    <div class="form-group">
+      <label for="first_name">First Name:</label>
+      <input type="text" class="form-control" name="first_name" required="required" pattern="{{ first_namePattern }}" placeholder="First Name" value="{{first_nameAttempted}}">
+    </div>
+    
+    <div class="form-group">
+      <label for="last_name">Last Name:</label>
+      <input type="text" class="form-control" name="last_name" required="required" pattern="{{last_namePattern}}" placeholder="Last Name" value="{{last_nameAttempted}}">
+    </div>
+    
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" name="email" required="required" pattern="{{emailPattern}}" placeholder="Email" value="{{emailAttempted}}">
+    </div>
+    
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <input type="text" class="form-control" name="username" required="required" pattern="{{usernamePattern}}" placeholder="Username" value="{{usernameAttempted}}">
+    </div>
+    
+    <div class="form-group">
+      <label for="password1">Password:</label>
+      <input type="password" class="form-control" name="password1" required="required" pattern="{{passwordPattern}}" placeholder="Password">
+    </div>
+    
+    <div class="form-group">
+      <label for="password2">Confirm Password:</label>
+      <input type="password" class="form-control" name="password2" required="required" placeholder="Confirm Password">
+    </div>
+    
+    <div class="form-group">
+      <button type="submit" class="btn btn-success btn-lg btn-block">Submit</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
