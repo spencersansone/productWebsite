@@ -9,6 +9,7 @@ from django.views import generic
 
 
 class ProductList(generic.ListView):
+    
     template_name = 'main/productList.html'
     context_object_name = 'productList'
     
