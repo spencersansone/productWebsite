@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Product List{% endblock %}
+
+{% block body %}
+<div class="col-sm-12">
+    <h1>Product List</h1>
+    {% for product in productList %}
+    <h1>{{product.title}}</h1>
+    <h1>{{product.product_price}}</h1>
+    <h1>{{product.shipping_price}}</h1>
+    <h1>{{product.description}}</h1>
+    {% endfor %}
+</div>
+{% endblock %}
